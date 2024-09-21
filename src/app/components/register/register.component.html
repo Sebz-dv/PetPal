@@ -1,0 +1,88 @@
+<!-- <app-alert [message]="alertMessage" [type]="alertType"></app-alert> -->
+<div class="flex justify-center items-center min-h-screen bg-gradient-to-r from-yellow-500 via-orange-400 to-orange-300 animate-gradient-x">
+  <div class="flex flex-col md:flex-row bg-white/30 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-full max-w-4xl border border-white/20">
+    <!-- Descripción en el lado izquierdo -->
+    <div class="flex-1 flex flex-col justify-center p-8 text-white bg-gradient-to-br from-yellow-500 to-orange-500 rounded-l-2xl relative">
+      <h1 class="text-4xl font-bold mb-4">¡Bienvenido a PetPal!</h1>
+      <p class="text-lg mb-6">
+        En <span class="font-semibold">PetPal</span>, nos dedicamos a ofrecerte las mejores soluciones para el cuidado de tu mascota. <span class="font-semibold">Regístrate hoy</span> para acceder a nuestras funcionalidades exclusivas, recibir recomendaciones personalizadas y aprovechar todas las ventajas que nuestra app tiene para ofrecer.
+      </p>
+      <p class="text-lg font-medium">
+        Solo los usuarios registrados pueden disfrutar de beneficios completos como seguimiento de salud, alertas importantes y descuentos especiales. ¡No te lo pierdas!
+      </p>
+      <img src="https://img.icons8.com/ios-filled/150/ffffff/dog-paw-print.png" alt="Paw Icon" class="w-28 h-28 opacity-70 absolute bottom-4 right-4 animate-spin-slow">
+    </div>
+
+    <!-- Formulario de registro en el lado derecho -->
+    <div class="flex-1 bg-white/30 backdrop-blur-md p-8 rounded-r-2xl shadow-xl border border-white/20 relative">
+      <!-- Icono en la parte superior -->
+      <div class="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-white p-4 rounded-full shadow-md border-4 border-yellow-500">
+        <img src="https://img.icons8.com/ios-filled/50/000000/dog-paw-print.png" alt="Paw Icon" class="w-12 h-12">
+      </div>
+
+      <h2 class="text-3xl font-bold mb-6 text-center text-black mt-16">¡Regístrate en PetPal!</h2>
+      <form (ngSubmit)="save()">
+        <div class="mb-4">
+          <label for="firstname" class="block text-lg text-black font-semibold">Nombre</label>
+          <input
+            id="firstname"
+            type="text"
+            [(ngModel)]="firstname"
+            name="firstname"
+            placeholder="Nombre completo"
+            class="w-full px-4 py-3 bg-white/80 text-gray-900 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-300"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="lastname" class="block text-lg text-black font-semibold">Apellido</label>
+          <input
+            id="lastname"
+            type="text"
+            [(ngModel)]="lastname"
+            name="lastname"
+            placeholder="Apellido"
+            class="w-full px-4 py-3 bg-white/80 text-gray-900 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-300"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-lg text-black font-semibold">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="Correo electrónico"
+            class="w-full px-4 py-3 bg-white/80 text-gray-900 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-300"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-lg text-black font-semibold">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Contraseña"
+            class="w-full px-4 py-3 bg-white/80 text-gray-900 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 transition duration-300"
+            required
+          />
+        </div>
+        <div class="mb-6 flex justify-center">
+          <button
+            type="submit"
+            class="inline-block px-8 py-3 font-bold text-center text-white uppercase transition-transform rounded-full cursor-pointer bg-gradient-to-br from-yellow-600 to-orange-400 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-md"
+          >
+            Registrar
+          </button>
+        </div>
+        <p class="text-center text-black">
+          ¿Ya tienes una cuenta? 
+          <a href="/login" class="text-orange-500 hover:text-orange-700 underline transition-colors">Inicia sesión</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div> 
