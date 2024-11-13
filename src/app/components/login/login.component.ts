@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,], 
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -19,94 +20,67 @@ export class LoginComponent {
   isLogin: boolean = true;
   errorMessage: string = '';
 
-  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService) {}
+  showPassword: boolean = false;
 
-  // login() {
-  //   console.log(this.email);
-  //   console.log(this.password);
-  
-  //   const bodyData = {
-  //     email: this.email,
-  //     password: this.password,
-  //   };
-  
-  //   this.http.post('http://localhost:9002/user/login', bodyData).subscribe(
-  //     (resultData: any) => {
-  //       console.log('Response:', resultData);
-  //       if (resultData && resultData.status) {
-  //         // Guarda el token en el almacenamiento local o de sesión
-  //         localStorage.setItem('authToken', resultData.token);  // Almacena el token
-  
-  //         // Muestra el mensaje de éxito
-  //         this.toastr.success(
-  //           'Bienvenido de nuevo.',
-  //           '¡Hola!',
-  //           {
-  //             timeOut: 3000,
-  //             positionClass: 'toast-top-right',
-  //             progressBar: true,
-  //           }
-  //         );
-  //         // Redirige al home
-  //         this.router.navigateByUrl('/home');
-  //       } else {
-  //         alert('Incorrect Email or Password');
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log('Error login', error);
-  //       this.errorMessage = 'Error al iniciar sesión. Por favor, intenta nuevamente.';
-  //     }
-  //   );    
-  // }  
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {}
 
   login() {
-    console.log(this.email);
-    console.log(this.password);
-  
+    console.log(this.email); // Para debugging, puedes eliminar esto en producción
     const bodyData = {
       email: this.email,
       password: this.password,
     };
-  
+
     this.http.post('http://localhost:9002/user/login', bodyData).subscribe(
       (resultData: any) => {
         console.log('Response:', resultData);
         if (resultData && resultData.status) {
-          // Guarda el token en el almacenamiento local o de sesión
-          localStorage.setItem('authToken', resultData.token);  // Almacena el token
-  
-          // Llama al método para obtener los datos del usuario por email
-          this.userService.getUserByEmail(this.email).subscribe(
-            (user: User) => {
-              console.log('User Data:', user); // Muestra los datos del usuario en consola
-            },
-            (error) => {
-              console.error('Error fetching user data:', error);
-            }
-          );
-  
-          // Muestra el mensaje de éxito
-          this.toastr.success(
-            'Bienvenido de nuevo.',
-            '¡Hola!',
+          // Guarda el email del usuario y el token de autenticación en localStorage
+          localStorage.setItem('userEmail', this.email);
+          localStorage.setItem('authToken', resultData.token);
+
+          // Muestra un mensaje de bienvenida
+          this.toastr.success('Bienvenido de nuevo.', '¡Hola!', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+          });
+
+          // Redirige a la página principal después de hacer login
+          this.router.navigateByUrl('/home');
+        } else {
+          // Si el login falla, muestra un mensaje de error
+          this.toastr.error(
+            'Correo electrónico o contraseña incorrectos',
+            'Error',
             {
               timeOut: 3000,
               positionClass: 'toast-top-right',
               progressBar: true,
             }
           );
-          // Redirige al home
-          this.router.navigateByUrl('/home');
-        } else {
-          alert('Incorrect Email or Password');
         }
       },
       (error) => {
-        console.log('Error login', error);
-        this.errorMessage = 'Error al iniciar sesión. Por favor, intenta nuevamente.';
+        console.log('Error en login:', error);
+        this.toastr.error(
+          'Error al iniciar sesión. Por favor, intenta nuevamente.',
+          'Error',
+          {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+          }
+        );
       }
     );
   }
-  
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 }

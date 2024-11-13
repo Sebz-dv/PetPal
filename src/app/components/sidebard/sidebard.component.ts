@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebard',
@@ -24,13 +24,20 @@ export class SidebardComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  // Método para redirigir al perfil
+  navigateToProfile() {
+    const userEmail = localStorage.getItem('userEmail');  // Obtiene el correo desde el localStorage
+    if (userEmail) {
+      this.router.navigate(['/profile'], { queryParams: { email: userEmail } }); // Redirige al perfil con el correo como parámetro
+    } else {
+      this.router.navigate(['/login']); // Si no hay correo, redirige a login
+    }
+  }
+
   // Método para cerrar sesión
   logout() {
-    // Elimina el token o datos de autenticación (localStorage o sessionStorage)
     localStorage.removeItem('authToken');
     sessionStorage.removeItem('authToken');
-
-    // Redirige al usuario a la página de inicio de sesión
     this.router.navigate(['/login']);
   }
 }

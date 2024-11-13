@@ -39,3 +39,14 @@ module.exports.loginUserDBService = async (loginDetails) => {
         return false;
     }
 };
+
+module.exports.getUserByEmail = async (email) => {
+  try {
+    const user = await userModel.findOne({ email }).exec();
+    return user;  // Devuelve el usuario si lo encuentra
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
+    return null;
+  }
+};
+

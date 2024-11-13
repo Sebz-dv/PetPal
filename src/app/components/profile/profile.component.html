@@ -1,0 +1,33 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-6">Perfil de Usuario</h2>
+
+  <!-- Información del usuario -->
+  <div class="mb-6">
+    <h3 class="text-xl font-medium text-gray-700 mb-2">Hola, {{ userName }}!</h3>
+  </div>
+
+  <!-- Foto de perfil -->
+  <div class="mb-6">
+    <label for="profileImage" class="block text-lg font-medium text-gray-700 mb-2">Foto de perfil:</label>
+    <div class="flex items-center">
+      <input type="file" id="profileImage" (change)="onImageSelected($event)" class="block w-full text-sm text-gray-600 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-gray-800 file:bg-gray-100 hover:file:bg-gray-200" />
+    </div>
+    <div *ngIf="profileImage" class="mt-4">
+      <img [src]="profileImage" alt="Foto de perfil" class="rounded-full w-24 h-24 object-cover border-2 border-gray-300" />
+    </div>
+  </div>
+
+  <!-- Detalles de la mascota -->
+  <div class="mb-6">
+    <label for="petName" class="block text-lg font-medium text-gray-700 mb-2">Nombre de la mascota:</label>
+    <input type="text" id="petName" [(ngModel)]="petName" class="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+
+    <label for="petAge" class="block text-lg font-medium text-gray-700 mt-4 mb-2">Edad de la mascota:</label>
+    <input type="number" id="petAge" [(ngModel)]="petAge" class="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+  </div>
+
+  <!-- Botón para guardar -->
+  <button (click)="saveProfile()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+    Guardar
+  </button>
+</div>
